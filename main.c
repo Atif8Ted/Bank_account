@@ -1,7 +1,7 @@
 #include <stdio.h>
+#include<malloc.h>
 #include<stdlib.h>
 #include<string.h>
-#include<fcntl.h>
 #define MAX_NAME_LENGTH 25
 #define MAX_ACC_NUM_LEN 20
 #define MAX_ADDRESS_LEN 100
@@ -77,10 +77,22 @@ data split(B_node* sptr,data k,B_node* nn2){
             temp[i-1]=t;
         }
     }//end_for_loop
-}
-p=2;//for index promotion
 
-for(i=0;i<p;i++)
+    p=2; // for index promotion
+	for(i=0;i<p;i++)
+	{
+		sptr->key[i]=temp[i];
+	}
+	for(i=p+1, j=0;i<=sptr->count;i++, j++)
+	{
+		nn2->key[j]=temp[i];
+	}
+	
+	nn2->leaf=sptr->leaf;
+	nn2->count=1;
+	sptr->count=2;
+}
+
 
 int main()
 {
