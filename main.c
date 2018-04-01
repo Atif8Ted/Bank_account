@@ -70,9 +70,17 @@ data split(B_node* sptr,data k,B_node* nn2){
         temp[i]=sptr->key[i];
     }
     temp[sptr->count]=k;
-    for
+    for(i=sptr->count;i>0;i--){
+        if(temp[i].card_num<temp[i-1].card_num){
+            t=temp[i];
+            temp[i]=temp[i-1];
+            temp[i-1]=t;
+        }
+    }//end_for_loop
 }
+p=2;//for index promotion
 
+for(i=0;i<p;i++)
 
 int main()
 {
