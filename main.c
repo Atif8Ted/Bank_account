@@ -95,7 +95,186 @@ data split(B_node* sptr,data k,B_node* nn2){
 	nn2->count=1;
 	sptr->count=2;
     return temp[2];
-}
+}//split function ends
+
+
+//insertion function starts
+B_node* Insertion(data k, B_node* root){
+
+	int done=0, visit=0, found_place=0, f=0, i, j;
+	B_node *ptr, *nn1, *nn2, *nn3,  *temp2[MAX] ;
+	data temp1;
+	
+	
+	if(root==NULL){
+		nn1=(B_node*)malloc(sizeof(B_node));
+		nn1->key[0]=k;
+		nn1->count=1;
+		nn1->leaf=1;
+		root=nn1;
+		nn1->parent=NULL;		
+	}
+	else  //root!=null
+	{
+		ptr=root;
+		int duplicate=0;
+		visit=0;
+		if(ptr->leaf!=1)
+		{
+			
+			while(ptr->leaf!=1)
+			{	//check for right node to insert element
+				duplicate=0;
+				for(i=0;i<ptr->count&&duplicate==0;i++)
+				{
+					if(ptr->key[i].lib_num==k.lib_num)
+					{
+						duplicate=1;
+					}
+				}
+				if(duplicate==0)
+				{
+					if(k.lib_num<ptr->key[0].lib_num)
+					{
+						found_place=1;
+						f=0;	
+					}
+					else if(k.lib_num>ptr->key[ptr->count-1].lib_num)
+					{
+						found_place=1;
+						f=ptr->count;	
+					}	
+					else
+					{
+						f=1;
+						while((f<ptr->count)&&(found_place=0))
+						{
+							if((k.lib_num>ptr->key[f-1].lib_num)&&(k.lib_num<ptr->key[f].lib_num))
+							{
+								found_place=1;
+							}						
+							else
+							{
+								f++;
+							}
+						}
+					}
+					ptr=ptr->branches[f];
+				}//end of if(duplicate==0)
+				else	//if(duplicate==1)
+				{
+					ptr->key[i]=k;
+				}
+			
+				
+			}//end of while(leaf!=1)
+		}//end of if(leaf!=1)
+		while(done==0)
+		{	//check for count
+		
+				if(visit!=0)
+				{
+					for(i=0,j=0;j<ptr->count+1;j++)
+					{
+						if(i==f)
+						{
+							temp2[i]=ptr->branches[j];
+							i++;
+							temp2[i]=nn2;
+							i++;
+													
+						}
+						else
+						{
+							temp2[i]=ptr->branches[j];
+							i++;
+						}
+					}
+					for(i=0;i<ptr->count+2;i++)
+					{
+						ptr->branches[i]=temp2[i];
+					
+					}
+				
+				}
+		
+			if(ptr->count<MAX-1)
+			{
+				duplicate=0;
+				for(i=0;i<ptr->count&&duplicate==0;i++)
+				{
+					if(ptr->key[i].lib_num==k.lib_num)
+					{
+						duplicate=1;
+					}
+				}
+				if(duplicate==0)
+				{				
+					ptr->key[ptr->count]=k;
+					for(i=ptr->count;i>0;i--)
+					{
+						if(ptr->key[i].lib_num<ptr->key[i-1].lib_num)
+						{
+									
+							temp1=ptr->key[i];
+							ptr->key[i]=ptr->key[i-1];
+							ptr->key[i-1]=temp1;
+						}
+					}
+					ptr->count=ptr->count+1;
+				}
+				else	//if duplicate==1
+				{
+					printf("purana");
+					ptr->key[i]=k;
+				}
+				done=1;
+			}	
+			
+			else 	//if(ptr->count==MAX-1)
+			{
+				nn2=(B_node*)malloc(sizeof(B_node));
+				k=split(ptr, k, nn2);
+				//to adjust branches if ptr is not leaf node
+				if(ptr->leaf!=1)
+				{
+					nn2->branches[0]=ptr->branches[ptr->count+1];
+					ptr->branches[ptr->count+1]=NULL;	
+				}
+				//to adjust branches if ptr is not leaf node
+				if(ptr->parent!=NULL)
+				{
+					
+					nn2->parent=ptr->parent;
+					ptr=ptr->parent;
+					visit++;
+					
+				}
+				else 	//ptr->parent==NULL
+				{
+					nn3=(B_node*)malloc(sizeof(B_node));
+					nn3->leaf=0;
+					nn3->key[0]=k;
+					nn3->key[0]=k;
+					nn3->count=1;
+					nn3->branches[0]=ptr;
+					nn3->branches[1]=nn2;
+					nn3->parent=NULL;
+					root=nn3;
+					ptr->parent=nn3;
+					nn2->parent=nn3;
+					done=1;
+				}
+			}
+			
+		}
+		
+		
+	}
+
+	return root;
+}//end of insertion
+
 
 
 int main()
