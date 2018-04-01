@@ -118,38 +118,33 @@ B_node* Insertion(data k, B_node* root){
     //root!=null
 	else{
 		ptr=root;
-		int duplicate=0;
+		int check=0;
 		visit=0;
 		if(ptr->leaf!=1){
 			
-			while(ptr->leaf!=1)
-			{	//check for right node to insert element
-				duplicate=0;
-				for(i=0;i<ptr->count&&duplicate==0;i++)
-				{
-					if(ptr->key[i].lib_num==k.lib_num)
-					{
-						duplicate=1;
+			while(ptr->leaf!=1){	//check for right node to insert element
+				check=0;
+				for(i=0;i<ptr->count && check==0;i++){
+					if(ptr->key[i].card_num==k.card_num){
+						check=1;
 					}
 				}
-				if(duplicate==0)
-				{
-					if(k.lib_num<ptr->key[0].lib_num)
+				if(check==0){
+					if(k.card_num<ptr->key[0].card_num)
 					{
 						found_place=1;
 						f=0;	
 					}
-					else if(k.lib_num>ptr->key[ptr->count-1].lib_num)
+					else if(k.card_num>ptr->key[ptr->count-1].card_num)
 					{
 						found_place=1;
 						f=ptr->count;	
 					}	
-					else
-					{
+					else{
 						f=1;
 						while((f<ptr->count)&&(found_place=0))
 						{
-							if((k.lib_num>ptr->key[f-1].lib_num)&&(k.lib_num<ptr->key[f].lib_num))
+							if((k.card_num>ptr->key[f-1].card_num)&&(k.card_num<ptr->key[f].card_num))
 							{
 								found_place=1;
 							}						
@@ -160,15 +155,14 @@ B_node* Insertion(data k, B_node* root){
 						}
 					}
 					ptr=ptr->branches[f];
-				}//end of if(duplicate==0)
-				else	//if(duplicate==1)
-				{
+				}
+				else{
 					ptr->key[i]=k;
 				}
 			
 				
-			}//end of while(leaf!=1)
-		}//end of if(leaf!=1)
+			}
+		}
 		while(done==0)
 		{	//check for count
 		
@@ -200,10 +194,10 @@ B_node* Insertion(data k, B_node* root){
 		
 			if(ptr->count<MAX-1)
 			{
-				duplicate=0;
-				for(i=0;i<ptr->count&&duplicate==0;i++)
+				check=0;
+				for(i=0;i<ptr->count&&check==0;i++)
 				{
-					if(ptr->key[i].lib_num==k.lib_num)
+					if(ptr->key[i].card_num==k.card_num)
 					{
 						duplicate=1;
 					}
