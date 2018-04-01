@@ -32,15 +32,18 @@ typedef struct card_node_struct {
 }B_node;
 
 //Dislpay_function
-void display(B_node *ptr,int blanks){
-    if (ptr)
-    {
-        int i;
-        for(i=1;i<=blanks;i++)
-        printf(" ");
-        for(i=0;i<ptr->count;i++){
-            if(i<ptr->count){
-               	printf("\n");
+void display(B_node *ptr, int blanks)
+{
+	if (ptr)
+	{
+		int i;
+		for(i=1;i<=blanks;i++)
+			printf(" ");
+		for (i=0; i < ptr->count; i++)
+		{
+			if(i<ptr->count)
+			{
+				printf("\n");
 				printf("----------------------------------------------------");
 				printf("\nCustomer Name:%s",ptr->key[i].fullname);
 				printf("\nAddress:%s",ptr->key[i].address);
@@ -52,14 +55,14 @@ void display(B_node *ptr,int blanks){
                 printf("\nExpiry Date:%s",ptr->key[i].expiry_date);
                 printf("\nCVV NO:%d",ptr->key[i].cvv_no);
 				printf("\n");
-            }
-
-        }
-        printf("\n");
-        for(i=0;i<=ptr->count;i++){
-            display(ptr->branches[i],blanks+10);
-        }
-    }
+			//	printf("----------------------------------------------------");
+			}
+			
+		}
+		printf("\n");
+		for (i=0; i <= ptr->count; i++)
+			display(ptr->branches[i], blanks+10);
+	}
 }//END_DISPLAY_FUNCTION
 
 //splitting function
@@ -91,6 +94,7 @@ data split(B_node* sptr,data k,B_node* nn2){
 	nn2->leaf=sptr->leaf;
 	nn2->count=1;
 	sptr->count=2;
+    return temp[2];
 }
 
 
