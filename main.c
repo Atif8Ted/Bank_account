@@ -114,13 +114,13 @@ B_node* Insertion(data k, B_node* root){
 		root=nn1;
 		nn1->parent=NULL;		
 	}
-	else  //root!=null
-	{
+
+    //root!=null
+	else{
 		ptr=root;
 		int duplicate=0;
 		visit=0;
-		if(ptr->leaf!=1)
-		{
+		if(ptr->leaf!=1){
 			
 			while(ptr->leaf!=1)
 			{	//check for right node to insert element
