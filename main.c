@@ -64,7 +64,13 @@ void display(B_node *ptr,int blanks){
 
 //splitting function
 data split(B_node* sptr,data k,B_node* nn2){
-    int
+    int i=0,p,j;
+    data temp[MAX],t;
+    for(i=0;i<sptr->count;i++){
+        temp[i]=sptr->key[i];
+    }
+    temp[sptr->count]=k;
+    for
 }
 
 
